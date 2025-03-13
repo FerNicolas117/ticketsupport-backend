@@ -24,6 +24,18 @@ public class Ticket {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @NotBlank
+    @Column(name = "type_of_service", nullable = false)
+    private String typeOfService;
+
+    @NotBlank
+    @Column(name = "equipment", nullable = false)
+    private String equipment;
+
+    @NotBlank
+    @Column(name = "priority", nullable = false)
+    private String priority;
+
     @Column(name = "opening_date", updatable = false)
     private LocalDateTime openingDate;
 
@@ -95,6 +107,30 @@ public class Ticket {
 
     public void setStatus(ETicketStatus status) {
         this.status = status;
+    }
+
+    public String getTypeOfService() {
+        return typeOfService;
+    }
+
+    public void setTypeOfService(String typeOfService) {
+        this.typeOfService = typeOfService;
+    }
+
+    public String getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(String equipment) {
+        this.equipment = equipment;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
     @Override

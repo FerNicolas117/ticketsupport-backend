@@ -28,7 +28,7 @@ public class JwtUtil {
 
         return Jwts.builder().setSubject(mainUser.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + expiration * 1000L)) // Expira 4.98 (83L) min despues de ser generado // Expiracion = 3600 milisegundos
+                .setExpiration(new Date(new Date().getTime() + expiration * 1000L)) // Expira 4.98 (83L) min despues de ser generado // Expiracion = 3600 milisegundos // * 1000 = 1hrs
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
