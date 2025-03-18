@@ -37,9 +37,11 @@ public class SecurityConfig {
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("" +
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("" +
                                 "/api/auth/login",
                                 "/api/auth/register").permitAll()
+                        .requestMatchers("/api/tickets/list-all").hasAuthority("SUPPORT_STAFF")
                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .exceptionHandling(

@@ -13,7 +13,7 @@ import java.util.List;
 public interface TicketRespository extends JpaRepository<Ticket, Long> {
 
     @Query("SELECT new com.ticketsupport.api.dto.TicketListDTO(" +
-            "t.id, t.title, t.description, t.openingDate, t.status) " +
+            "t.id, t.title, t.description, t.typeOfService, t.equipment, t.priority, t.openingDate, t.status) " +
             "FROM Ticket t WHERE t.userTicket.id = :user_id")
     List<TicketListDTO> findByUserId(@Param("user_id") Long userId);
 }

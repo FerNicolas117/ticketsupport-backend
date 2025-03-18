@@ -34,6 +34,12 @@ public class TicketController {
         return ticketService.getTicketsByUserId(userId);
     }
 
+    // Listar todos los tickets en general
+    @GetMapping(path = "/list-all")
+    public ResponseEntity<?> getAllTickets() {
+        return ResponseEntity.ok(ticketService.getAllTicketsGroupByUser());
+    }
+
     // Actualizar unicamente el status del ticket (USER_STAFF)
     @PatchMapping(path = "/update-status/{userId}")
     public ResponseEntity<String> updateTicketStatus(@PathVariable Long userId,

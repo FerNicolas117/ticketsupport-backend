@@ -1,6 +1,8 @@
 package com.ticketsupport.api.service.impl;
 
 import com.ticketsupport.api.dto.TicketListDTO;
+import com.ticketsupport.api.dto.ticket.TicketListForADMIN;
+import com.ticketsupport.api.dto.ticket.TicketsForUserDTO;
 import com.ticketsupport.api.exception.ResourceNotFoundException;
 import com.ticketsupport.api.model.ETicketStatus;
 import com.ticketsupport.api.model.Ticket;
@@ -10,10 +12,11 @@ import com.ticketsupport.api.repository.UserTicketRepository;
 import com.ticketsupport.api.service.TicketService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -65,6 +68,38 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketListDTO> getTicketsByUserId(Long userId) {
         return ticketRespository.findByUserId(userId);
+    }
+
+    @Override
+    public List<TicketsForUserDTO> getAllTicketsGroupByUser() {
+        List<Ticket> tickets = ticketRespository.findAll();
+
+        Map<UserTicket, List<Ticket>> groupedByUser = tickets.stream()
+                        .collect(Collectors.groupingBy(Ticket::getUserTicket));
+
+        // Convertir a una lista de DTO
+        return groupedByUser.entrySet().stream()
+                .map(entry -> new TicketsForUserDTO(
+                        entry.getKey().getId(),
+                        entry.getKey().getName(),
+                        entry.getKey().getEmail(),
+                        entry.getKey().getPhoneNumber(),
+                        entry.getKey().getSecretaria(),
+                        entry.getKey().getDireccion(),
+                        entry.getValue().stream()
+                                .map(ticket -> new TicketListDTO(
+                                        ticket.getId(),
+                                        ticket.getTitle(),
+                                        ticket.getDescription(),
+                                        ticket.getTypeOfService(),
+                                        ticket.getEquipment(),
+                                        ticket.getPriority(),
+                                        ticket.getOpeningDate(),
+                                        ticket.getStatus()
+                                ))
+                                .collect(Collectors.toList())
+                ))
+                .collect(Collectors.toList());
     }
 
 

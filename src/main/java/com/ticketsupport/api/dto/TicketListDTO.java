@@ -9,6 +9,9 @@ public class TicketListDTO {
     private Long id;
     private String title;
     private String description;
+    private String typeOfService;
+    private String equipment;
+    private String priority;
     private LocalDateTime openingDate;
     private ETicketStatus status;
 
@@ -16,16 +19,19 @@ public class TicketListDTO {
     public TicketListDTO() {}
 
     // Constructir con argumentos
-    public TicketListDTO(Long id, String title, String description, LocalDateTime openingDate, ETicketStatus status) {
+    public TicketListDTO(Long id, String title, String description, String typeOfService, String equipment,
+                         String priority, LocalDateTime openingDate, ETicketStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.typeOfService = typeOfService;
+        this.equipment = equipment;
+        this.priority = priority;
         this.openingDate = openingDate;
         this.status = status;
     }
 
     // Getters y Setters
-
     public Long getId() {
         return id;
     }
@@ -48,6 +54,30 @@ public class TicketListDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTypeOfService() {
+        return typeOfService;
+    }
+
+    public void setTypeOfService(String typeOfService) {
+        this.typeOfService = typeOfService;
+    }
+
+    public String getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(String equipment) {
+        this.equipment = equipment;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
     public LocalDateTime getOpeningDate() {
