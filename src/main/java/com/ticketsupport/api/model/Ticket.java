@@ -48,6 +48,11 @@ public class Ticket {
     @JoinColumn(name = "user_id", nullable = false)
     private UserTicket userTicket;
 
+    // Relacion con UserTicket -> SUPPORT_STAFF
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "support_staff_id", nullable = true)
+    private UserTicket supportStaffTicket;
+
     // Constructur con arguments
     public Ticket(Long id, String title, String description, LocalDateTime openingDate) {
         this.id = id;
@@ -131,6 +136,14 @@ public class Ticket {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public UserTicket getSupportStaffTicket() {
+        return supportStaffTicket;
+    }
+
+    public void setSupportStaffTicket(UserTicket supportStaffTicket) {
+        this.supportStaffTicket = supportStaffTicket;
     }
 
     @Override

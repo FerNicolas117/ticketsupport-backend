@@ -14,13 +14,16 @@ public class TicketListDTO {
     private String priority;
     private LocalDateTime openingDate;
     private ETicketStatus status;
+    private Long userSupportStaffId;
+    private String userSupportStaffName;
 
     // Constructor
     public TicketListDTO() {}
 
     // Constructir con argumentos
     public TicketListDTO(Long id, String title, String description, String typeOfService, String equipment,
-                         String priority, LocalDateTime openingDate, ETicketStatus status) {
+                         String priority, LocalDateTime openingDate, ETicketStatus status,
+                         Long userSupportStaffId, String userSupportStaffName) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,6 +32,8 @@ public class TicketListDTO {
         this.priority = priority;
         this.openingDate = openingDate;
         this.status = status;
+        this.userSupportStaffId = userSupportStaffId;
+        this.userSupportStaffName = userSupportStaffName;
     }
 
     // Getters y Setters
@@ -94,5 +99,21 @@ public class TicketListDTO {
 
     public void setStatus(ETicketStatus status) {
         this.status = status;
+    }
+
+    public Long getUserSupportStaffId() {
+        return userSupportStaffId;
+    }
+
+    public void setUserSupportStaffId(Long userSupportStaffId) {
+        this.userSupportStaffId = userSupportStaffId;
+    }
+
+    public String getUserSupportStaffName() {
+        return userSupportStaffName;
+    }
+
+    public void setUserSupportStaffName(String userSupportStaffName) {
+        this.userSupportStaffName = userSupportStaffName;
     }
 }

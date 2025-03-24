@@ -53,13 +53,14 @@ public class TicketServiceImpl implements TicketService {
         Ticket existingTicket = ticketRespository.findById(ticketId)
                 .orElseThrow(() -> new ResourceNotFoundException("Ticket not found with ID:" + ticketId));
 
-        // Verificar que el ticket pertenece al usuario
-        if (!existingTicket.getUserTicket().getId().equals(userTicket.getId())) {
-            throw new ResourceNotFoundException("The Ticket not is equal with the UserTicket: " + userId);
+        // Verificar que el ticket solo puede ser modificado por un usuario de tipo 0 -> SUPPORT_STAFF
+        if (!userTicket.getRole().getRole().name().equals("SUPPORT_STAFF")) {
+            throw new ResourceNotFoundException("You are not support staff");
         }
 
         // Actualizar unicamente el status del ticket
         existingTicket.setStatus(status);
+        existingTicket.setSupportStaffTicket(userTicket);
 
         // Guardar y retornar el ticket actualizado
         return ticketRespository.save(existingTicket);
@@ -95,12 +96,19 @@ public class TicketServiceImpl implements TicketService {
                                         ticket.getEquipment(),
                                         ticket.getPriority(),
                                         ticket.getOpeningDate(),
-                                        ticket.getStatus()
+                                        ticket.getStatus(),
+
+                                        // Manejo de valores null
+                                        (ticket.getSupportStaffTicket() != null)
+                                                ? ticket.getSupportStaffTicket().getId()
+                                                : null,
+                                        (ticket.getSupportStaffTicket() != null)
+                                                ? ticket.getSupportStaffTicket().getName()
+                                                : null
                                 ))
                                 .collect(Collectors.toList())
                 ))
                 .collect(Collectors.toList());
     }
-
 
 }
