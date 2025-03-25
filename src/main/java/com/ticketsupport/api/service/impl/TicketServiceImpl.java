@@ -111,4 +111,9 @@ public class TicketServiceImpl implements TicketService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<TicketListDTO> getTicketsAttendedByUserStaffId(Long userId) {
+        return ticketRespository.findAllTicketsByUserStaffId(userId);
+    }
+
 }

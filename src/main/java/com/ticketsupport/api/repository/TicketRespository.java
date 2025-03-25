@@ -19,4 +19,12 @@ public interface TicketRespository extends JpaRepository<Ticket, Long> {
             "LEFT JOIN t.supportStaffTicket u " +
             "WHERE t.userTicket.id = :user_id")
     List<TicketListDTO> findByUserId(@Param("user_id") Long userId);
+
+    @Query("SELECT new com.ticketsupport.api.dto.TicketListDTO(" +
+            "t.id, t.title, t.description, t.typeOfService, t.equipment, t.priority, " +
+            "t.openingDate, t.status, t.supportStaffTicket.id, t.supportStaffTicket.name) " +
+            "FROM Ticket t " +
+            "LEFT JOIN t.supportStaffTicket AS st " +
+            "WHERE st.id = :support_staff_id")
+    List<TicketListDTO> findAllTicketsByUserStaffId(@Param("support_staff_id") Long userId);
 }

@@ -51,4 +51,10 @@ public class TicketController {
         return ResponseEntity.status(HttpStatus.OK).body("Ticket Status updated Succesfully: " +
                 updatedTicket.getUserTicket() + " " + updatedTicket.getStatus());
     }
+
+    // Tickets de los usuarios que son SUPPORT_STAFF
+    @GetMapping(path = "list-all-mytickets/{userId}")
+    public List<TicketListDTO> getAllMyTickets(@PathVariable Long userId) {
+        return ticketService.getTicketsAttendedByUserStaffId(userId);
+    }
 }

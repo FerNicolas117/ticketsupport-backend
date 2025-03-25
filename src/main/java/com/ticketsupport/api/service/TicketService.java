@@ -17,4 +17,7 @@ public interface TicketService {
     List<TicketListDTO> getTicketsByUserId(Long userId);
 
     List<TicketsForUserDTO> getAllTicketsGroupByUser();
+
+    // Listar los Ticket de los usuarios que son SUPPORT_STAFF (Mis Tickets atendidos)
+    List<TicketListDTO> getTicketsAttendedByUserStaffId(Long userId);
 }
